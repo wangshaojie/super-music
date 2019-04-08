@@ -14,6 +14,23 @@ const singer = {
     })
 
     return Promise.resolve(res.data)
+  },
+  async getSingerDetail(id) {
+    const data = Object.assign({}, commonParams, {
+      platform: 'yqq.json',
+      uin: 0,
+      ct: 24,
+      singermid: id,
+      order: 'listen',
+      begin: 0,
+      num: 100
+    })
+
+    const res = await axios.get('/api/singerDetail', {
+      params: data
+    })
+
+    return Promise.resolve(res.data)
   }
 }
 
