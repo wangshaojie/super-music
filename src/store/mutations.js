@@ -1,5 +1,4 @@
 import * as types from './mutation-types'
-import { type } from 'os'
 
 const matutaions = {
   [types.SET_SINGER](state, singer) {
@@ -11,17 +10,17 @@ const matutaions = {
   [types.SET_FULL_SCREEN](state, flag) {
     state.fullScreen = flag
   },
-  [type.SET_PLAYING_STATE](state, list) {
+  [types.SET_PLAYING_STATE](state, list) {
     state.playList = list
   },
-  [type.SET_SEQUENCE_LIST](state, list) {
+  [types.SET_SEQUENCE_LIST](state, list) {
     state.sequenceList = list
   },
-  [type.SET_PLAY_MODE](state, list) {
+  [types.SET_PLAY_MODE](state, list) {
     state.mode = list
   },
-  [type.SET_CURRENT_INDEX](state, index) {
-    this.currentIndex = index
+  [types.SET_CURRENT_INDEX](state, index) {
+    state.currentIndex = index
   }
 }
 
