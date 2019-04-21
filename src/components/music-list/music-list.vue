@@ -16,7 +16,7 @@
     <div class="bg-layer" ref="layer"></div>
     <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list" ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs">
+        <song-list @select="selectItem" :songs="songs">
 
         </song-list>
       </div>
@@ -32,6 +32,8 @@
 import Loading from 'base/loading/loading'
 import Scroll from 'base/scroll/scroll'
 import SongList from 'base/song-list/song-list'
+import mapActions from 'vuex'
+
 const RESOLVED_HEIGHT = 40
 
 export default {
@@ -66,12 +68,24 @@ export default {
     this.songLen = this.songs.length
   },
   methods: {
+    // ...mapActions(['selectPlay']),
     scroll(pos) {
       this.scrollY = pos.y
     },
     backBtn() {
       this.$router.back()
+    },
+    selectItem(item, index) {
+      console.log(this.songs)
+      this.$store.dispatch('selectPlay', {list: this.songs, index: index})
+      // this.selectPlay({
+      //   list: this.songs,
+      //   index: index
+      // })
     }
+    // ...mapActions([
+    //   'selectPlay'
+    // ])
   },
   computed: {
     bjStyle() {

@@ -2,7 +2,7 @@ export const singer = state => state.singer
 
 export const playing = state => state.playing
 
-export const fullScree = state => state.fullScree
+export const fullScreen = state => state.fullScreen
 
 export const playList = state => state.playList
 
