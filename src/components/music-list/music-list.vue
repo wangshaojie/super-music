@@ -32,7 +32,7 @@
 import Loading from 'base/loading/loading'
 import Scroll from 'base/scroll/scroll'
 import SongList from 'base/song-list/song-list'
-import mapActions from 'vuex'
+import {mapActions} from 'vuex'
 
 const RESOLVED_HEIGHT = 40
 
@@ -68,7 +68,7 @@ export default {
     this.songLen = this.songs.length
   },
   methods: {
-    // ...mapActions(['selectPlay']),
+    ...mapActions(['selectPlay']),
     scroll(pos) {
       this.scrollY = pos.y
     },
@@ -76,16 +76,13 @@ export default {
       this.$router.back()
     },
     selectItem(item, index) {
-      console.log(this.songs)
-      this.$store.dispatch('selectPlay', {list: this.songs, index: index})
-      // this.selectPlay({
-      //   list: this.songs,
-      //   index: index
-      // })
-    }
-    // ...mapActions([
-    //   'selectPlay'
-    // ])
+      // console.log(this.songs)
+      // this.$store.dispatch('selectPlay', {list: this.songs, index: index})
+      this.selectPlay({list: this.songs, index: index})
+    },
+    ...mapActions([
+      'selectPlay'
+    ])
   },
   computed: {
     bjStyle() {
