@@ -4,7 +4,7 @@
       @enter="enter"
       @after-enter="afterEnter"
       @level="level"
-      @after-level="levelEnter"
+      @after-level="afterLevel"
     >
     <div class="normal-player" v-show="fullScreen">
       <div class="background">
@@ -66,12 +66,15 @@
       </div>
     </div>
     </transition>
+    <audio ref="audio" :src="currentSong.url"></audio>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import animations from 'create-keyframe-animation'
+import {prefixStyle} from 'common/js/dom'
+const transform = prefixStyle('transform')
 
 export default {
   computed: {
@@ -83,6 +86,13 @@ export default {
   },
   mounted() {
     console.log(this.currentSong.id)
+  },
+  watch: {
+    currentSong() {
+      this.$nextTick(() => {
+        this.$refs.audio.play()
+      })
+    }
   },
   methods: {
     back() {
@@ -121,11 +131,15 @@ export default {
       animations.unregisterAnimation('move')
       this.$refs.cdWrapper.style.animation = ''
     },
-    level() {
-
+    level(el, done) {
+      this.$refs.cdWrapper.style.transition = 'all 0.4s'
+      const {x, y, scale} = this._getPosAndScale()
+      this.$refs.cdWrapper.style[transform] = `translate3d(${x}px, ${y}px, 0) scale(${scale})`
+      this.$refs.cdWrapper.addEventListener('transitionend', done)
     },
-    levelEnter() {
-
+    afterLevel() {
+      this.$refs.cdWrapper.style.transition = ''
+      this.$refs.cdWrapper.style[transform] = ''
     },
     _getPosAndScale() {
       const targetWidth = 40
